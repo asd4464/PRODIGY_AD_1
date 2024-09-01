@@ -1,51 +1,62 @@
-import tkinter as tk
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="#f5f5f5">
 
-class Calculator:
-    def __init__(self, master):
-        self.master = master
-        master.title("Calculator")
+    <TextView
+        android:id="@+id/tvDisplay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="16dp"
+        android:textSize="32sp"
+        android:gravity="end"
+        android:text="0"
+        android:textColor="#000000"
+        android:background="#eaeaea"
+        android:padding="16dp" />
 
-        self.expression = ""
-        self.entry = tk.Entry(master, width=35, borderwidth=5)
-        self.entry.grid(row=0, column=0, columnspan=4, padx=10, pady=10)
-        self.entry.insert(0, "0")
+    <GridLayout
+        android:id="@+id/gridLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvDisplay"
+        android:rowCount="5"
+        android:columnCount="4"
+        android:layout_marginTop="16dp">
 
-        button_names = [
-            "7", "8", "9", "/",
-            "4", "5", "6", "*",
-            "1", "2", "3", "-",
-            "0", ".", "=", "+"
-        ]
+        <!-- Number and operator buttons -->
+        <Button android:id="@+id/btn7" android:text="7" style="@style/CalcButton"/>
+        <Button android:id="@+id/btn8" android:text="8" style="@style/CalcButton"/>
+        <Button android:id="@+id/btn9" android:text="9" style="@style/CalcButton"/>
+        <Button android:id="@+id/btnDivide" android:text="/" style="@style/CalcButtonOperator"/>
 
-        row, col = 1, 0
-        for button_text in button_names:
-            if button_text == "=":
-                btn = tk.Button(master, text=button_text, width=9, height=2, command=self.equal)
-            else:
-                btn = tk.Button(master, text=button_text, width=5, height=2, command=lambda x=button_text: self.press(x))
+        <Button android:id="@+id/btn4" android:text="4" style="@style/CalcButton"/>
+        <Button android:id="@+id/btn5" android:text="5" style="@style/CalcButton"/>
+        <Button android:id="@+id/btn6" android:text="6" style="@style/CalcButton"/>
+        <Button android:id="@+id/btnMultiply" android:text="*" style="@style/CalcButtonOperator"/>
 
-            btn.grid(row=row, column=col)
-            col += 1
-            if col > 3:
-                col = 0
-                row += 1
+        <Button android:id="@+id/btn1" android:text="1" style="@style/CalcButton"/>
+        <Button android:id="@+id/btn2" android:text="2" style="@style/CalcButton"/>
+        <Button android:id="@+id/btn3" android:text="3" style="@style/CalcButton"/>
+        <Button android:id="@+id/btnSubtract" android:text="-" style="@style/CalcButtonOperator"/>
 
-    def press(self, num):
-        self.expression += str(num)
-        self.entry.delete(0, tk.END)
-        self.entry.insert(0, self.expression)
+        <Button android:id="@+id/btn0" android:text="0" style="@style/CalcButton"/>
+        <Button android:id="@+id/btnDecimal" android:text="." style="@style/CalcButton"/>
+        <Button android:id="@+id/btnClear" android:text="C" style="@style/CalcButton"/>
+        <Button android:id="@+id/btnAdd" android:text="+" style="@style/CalcButtonOperator"/>
 
-    def equal(self):
-        try:
-            total = str(eval(self.expression))
-            self.entry.delete(0, tk.END)
-            self.entry.insert(0, total)
-            self.expression = total
-        except:
-            self.entry.delete(0, tk.END)
-            self.entry.insert(0, "Error")
-            self.expression = ""
-
-root = tk.Tk()
-calculator = Calculator(root)
-root.mainloop()
+        <Button
+            android:id="@+id/btnEqual"
+            android:text="="
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_rowSpan="2"
+            android:layout_columnSpan="4"
+            android:textSize="24sp"
+            android:background="@color/colorAccent"
+            android:textColor="#FFFFFF" />
+    </GridLayout>
+</RelativeLayout>
